@@ -2,7 +2,7 @@ package com.bhargrah.guestservice.service;
 
 import com.bhargrah.guestservice.entity.Guest;
 
-public interface IGuestService {
+public interface GuestService {
 
   Iterable<Guest> getAllGuest();
 

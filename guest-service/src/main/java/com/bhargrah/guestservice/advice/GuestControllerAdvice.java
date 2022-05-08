@@ -25,9 +25,9 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 @ControllerAdvice(assignableTypes = GuestController.class)
-public class GlobalControllerAdvice {
+public class GuestControllerAdvice {
   /** Note use base class if you wish to leverage its handling. Some code will need changing. */
-  private static final Logger logger = LoggerFactory.getLogger(GlobalControllerAdvice.class);
+  private static final Logger logger = LoggerFactory.getLogger(GuestControllerAdvice.class);
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
   @ResponseStatus(code = HttpStatus.BAD_REQUEST)

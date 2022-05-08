@@ -6,7 +6,7 @@ import com.bhargrah.guestservice.repository.GuestRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class GuestServiceImpl implements IGuestService {
+public class GuestServiceImpl implements GuestService {
 
   private final GuestRepository guestRepository;
 

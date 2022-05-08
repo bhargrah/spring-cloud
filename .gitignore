@@ -61,6 +61,7 @@ local.properties
 *.orig
 classes/
 out/
+*.jpb
 
 ######################
 # Visual Studio Code
