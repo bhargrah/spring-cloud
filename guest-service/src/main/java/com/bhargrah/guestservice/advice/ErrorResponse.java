@@ -1,24 +1,24 @@
-package com.bhargrah.guestservice.exceptions;
+package com.bhargrah.guestservice.advice;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ErrorMessage {
+public class ErrorResponse {
 
   private List<String> errors;
 
-  public ErrorMessage() {}
+  public ErrorResponse() {}
 
-  public ErrorMessage(List<String> errors) {
+  public ErrorResponse(List<String> errors) {
     this.errors = errors;
   }
 
-  public ErrorMessage(String error) {
+  public ErrorResponse(String error) {
     this(Collections.singletonList(error));
   }
 
-  public ErrorMessage(String... errors) {
+  public ErrorResponse(String... errors) {
     this(Arrays.asList(errors));
   }
 

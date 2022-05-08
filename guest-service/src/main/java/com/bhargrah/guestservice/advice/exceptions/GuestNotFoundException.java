@@ -1,4 +1,4 @@
-package com.bhargrah.guestservice.controller;
+package com.bhargrah.guestservice.advice.exceptions;
 
 import lombok.NonNull;
 

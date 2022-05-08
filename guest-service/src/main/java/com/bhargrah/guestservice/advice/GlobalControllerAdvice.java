@@ -1,7 +1,7 @@
-package com.bhargrah.guestservice.exceptions;
+package com.bhargrah.guestservice.advice;
 
 import com.bhargrah.guestservice.controller.GuestController;
-import com.bhargrah.guestservice.controller.GuestNotFoundException;
+import com.bhargrah.guestservice.advice.exceptions.GuestNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -31,7 +31,7 @@ public class GlobalControllerAdvice {
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
   @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-  public ResponseEntity<ErrorMessage> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
+  public ResponseEntity<ErrorResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
     List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
     List<ObjectError> globalErrors = ex.getBindingResult().getGlobalErrors();
     List<String> errors = new ArrayList<>(fieldErrors.size() + globalErrors.size());
@@ -44,14 +44,14 @@ public class GlobalControllerAdvice {
       error = objectError.getObjectName() + ", " + objectError.getDefaultMessage();
       errors.add(error);
     }
-    ErrorMessage errorMessage = new ErrorMessage(errors);
+    ErrorResponse errorMessage = new ErrorResponse(errors);
 
     return new ResponseEntity(errorMessage, HttpStatus.BAD_REQUEST);
   }
 
   @ExceptionHandler(ConstraintViolationException.class)
   @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-  public ResponseEntity<ErrorMessage> handleConstraintViolatedException(ConstraintViolationException ex) {
+  public ResponseEntity<ErrorResponse> handleConstraintViolatedException(ConstraintViolationException ex) {
     Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
 
     List<String> errors = new ArrayList<>(constraintViolations.size());
@@ -61,46 +61,43 @@ public class GlobalControllerAdvice {
       errors.add(error);
     }
 
-    return new ResponseEntity(new ErrorMessage(errors), HttpStatus.BAD_REQUEST);
+    return new ResponseEntity(new ErrorResponse(errors), HttpStatus.BAD_REQUEST);
   }
 
   @ExceptionHandler(MissingServletRequestParameterException.class)
   @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-  public ResponseEntity<ErrorMessage> handleMissingServletRequestParameterException(MissingServletRequestParameterException ex) {
+  public ResponseEntity<ErrorResponse> handleMissingServletRequestParameterException(MissingServletRequestParameterException ex) {
 
     List<String> errors = new ArrayList<>();
     String error = ex.getParameterName() + ", " + ex.getMessage();
     errors.add(error);
-    return new ResponseEntity(new ErrorMessage(errors), HttpStatus.BAD_REQUEST);
+    return new ResponseEntity(new ErrorResponse(errors), HttpStatus.BAD_REQUEST);
   }
 
   @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
   @ResponseStatus(code = HttpStatus.UNSUPPORTED_MEDIA_TYPE)
-  public ResponseEntity<ErrorMessage> handleHttpMediaTypeNotSupported(HttpMediaTypeNotSupportedException ex) {
+  public ResponseEntity<ErrorResponse> handleHttpMediaTypeNotSupported(HttpMediaTypeNotSupportedException ex) {
     String unsupported = "Unsupported content type: " + ex.getContentType();
     String supported = "Supported content types: " + MediaType.toString(ex.getSupportedMediaTypes());
-    return new ResponseEntity(new ErrorMessage(unsupported, supported), HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+    return new ResponseEntity(new ErrorResponse(unsupported, supported), HttpStatus.UNSUPPORTED_MEDIA_TYPE);
   }
 
   @ExceptionHandler(HttpMessageNotReadableException.class)
   @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-  public ResponseEntity<ErrorMessage> handleHttpMessageNotReadable(HttpMessageNotReadableException ex) {
-    return new ResponseEntity(new ErrorMessage(ex.getMessage()), HttpStatus.BAD_REQUEST);
+  public ResponseEntity<ErrorResponse> handleHttpMessageNotReadable(HttpMessageNotReadableException ex) {
+    return new ResponseEntity(new ErrorResponse(ex.getMessage()), HttpStatus.BAD_REQUEST);
   }
 
   @ExceptionHandler(NoSuchElementException.class)
   @ResponseStatus(code = HttpStatus.NO_CONTENT)
-  public ResponseEntity<ErrorMessage> handleHttpMessageNoSuchElementException(NoSuchElementException ex) {
-    String cause = ex.getCause()!=null ? ex.getCause().toString() : "Cause Unknown";
-    //Error error = new Error(ex.getMessage(), cause);
-    return new ResponseEntity(new ErrorMessage(ex.getMessage()), HttpStatus.NO_CONTENT);
+  public ResponseEntity<ErrorResponse> handleHttpMessageNoSuchElementException(NoSuchElementException ex) {
+    return new ResponseEntity(new ErrorResponse(ex.getMessage()), HttpStatus.NO_CONTENT);
   }
 
   @ExceptionHandler(GuestNotFoundException.class)
   @ResponseStatus(code = HttpStatus.NO_CONTENT)
-  public ResponseEntity<ErrorMessage> handleGuestNotFoundException(GuestNotFoundException ex) {
-    //Error error = new Error(ex.getMessage(), cause);
-    return new ResponseEntity(new ErrorMessage(ex.getMessage()), HttpStatus.NO_CONTENT);
+  public ResponseEntity<ErrorResponse> handleGuestNotFoundException(GuestNotFoundException ex) {
+    return new ResponseEntity(new ErrorResponse(ex.getMessage()), HttpStatus.NO_CONTENT);
   }
 
 }
