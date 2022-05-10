@@ -13,8 +13,8 @@ public class Guest {
 
     @Id
     @Column(name="GUEST_ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name="FIRST_NAME")
     private String firstName;

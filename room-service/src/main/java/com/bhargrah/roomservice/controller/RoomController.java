@@ -5,8 +5,6 @@ import com.bhargrah.roomservice.service.RoomService;
 import lombok.NonNull;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.NotNull;
-
 @RestController
 @RequestMapping("/rooms")
 public class RoomController {
@@ -23,7 +21,7 @@ public class RoomController {
   }
 
   @GetMapping("/{roomId}")
-  public Room getRoomById(@NonNull @RequestParam Long roomId) {
+  public Room getRoomById(@NonNull @PathVariable Long roomId) {
     return roomService.findRoomById(roomId);
   }
 
