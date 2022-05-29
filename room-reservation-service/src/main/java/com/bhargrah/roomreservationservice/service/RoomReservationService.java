@@ -18,7 +18,7 @@ public class RoomReservationService {
     }
 
     public List<RoomReservation> getRoomReservation(){
-        List<Room> rooms = this.roomServiceClient.getAllRooms();
+        List<Room> rooms = this.roomServiceClient.getAll();
         List<RoomReservation> roomReservations = new ArrayList<>();
 
         rooms.forEach( room -> {

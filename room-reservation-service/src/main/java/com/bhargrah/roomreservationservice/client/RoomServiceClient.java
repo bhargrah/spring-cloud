@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name="ROOMSERVICE")
+@FeignClient(name="roomservice",url = "http://localhost:8083")
 public interface RoomServiceClient {
 
-    @GetMapping("/rooms")
-    List<Room> getAllRooms();
+    @GetMapping("/rooms/all")
+    List<Room> getAll();
 
     @GetMapping("/rooms/{roomId}")
-    Room getRoom(@PathVariable("roomId") long roomId);
+    Room getRoomById(@PathVariable("roomId") long roomId);
 
 }
