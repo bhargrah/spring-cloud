@@ -6,7 +6,7 @@ public interface RoomService {
 
     Iterable<Room> getAllRoom();
 
-    Room findRoomById(Long id);
+    Room findRoomById(Long roomId);
 
     Room addRoom(Room room);
 

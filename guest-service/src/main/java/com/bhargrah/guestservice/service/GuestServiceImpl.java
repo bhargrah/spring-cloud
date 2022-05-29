@@ -37,9 +37,9 @@ public class GuestServiceImpl implements GuestService {
   }
 
   @Override
-  public Guest updateGuestWithId(Guest newGuest, Long id) {
+  public Guest updateGuestWithId(Guest newGuest, Long guestId) {
     return guestRepository
-        .findById(id)
+        .findById(guestId)
         .map(
             guest -> {
               guest.setAddress(newGuest.getAddress());
@@ -53,15 +53,15 @@ public class GuestServiceImpl implements GuestService {
             })
         .orElseGet(
             () -> {
-              newGuest.setId(id);
+              newGuest.setGuestId(guestId);
               return guestRepository.save(newGuest);
             });
   }
 
   @Override
-  public Guest updateContactDetailsOfGuestWithId(Guest newGuest, Long id) {
+  public Guest updateContactDetailsOfGuestWithId(Guest newGuest, Long guestId) {
     return guestRepository
-        .findById(id)
+        .findById(guestId)
         .map(
             guest -> {
               guest.setEmailAddress(newGuest.getEmailAddress());
@@ -71,13 +71,13 @@ public class GuestServiceImpl implements GuestService {
         .orElseThrow(
             () ->
                 new GuestNotFoundException(
-                    "Cant update guest with [" + id + "] as entity not found"));
+                    "Cant update guest with [" + guestId + "] as entity not found"));
   }
 
   @Override
-  public Guest updateNameOfGuest(Guest newGuest, Long id) {
+  public Guest updateNameOfGuest(Guest newGuest, Long guestId) {
     return guestRepository
-        .findById(id)
+        .findById(guestId)
         .map(
             guest -> {
               guest.setLastName(newGuest.getLastName());
@@ -87,6 +87,6 @@ public class GuestServiceImpl implements GuestService {
         .orElseThrow(
             () ->
                 new GuestNotFoundException(
-                    "Cant update guest with [" + id + "] as entity not found"));
+                    "Cant update guest with [" + guestId + "] as entity not found"));
   }
 }

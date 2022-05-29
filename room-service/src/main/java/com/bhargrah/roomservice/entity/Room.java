@@ -15,7 +15,7 @@ public class Room {
   @Id
   @Column(name = "ROOM_ID")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private Long roomId;
 
   @Column(name = "NAME")
   @Size(max = 16)

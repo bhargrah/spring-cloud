@@ -20,8 +20,8 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public Room findRoomById(Long id) {
-        return roomRepository.findById(id).orElseThrow(() -> new RoomNotFound(id));
+    public Room findRoomById(Long roomId) {
+        return roomRepository.findById(roomId).orElseThrow(() -> new RoomNotFound(roomId));
     }
 
     @Override
