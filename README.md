@@ -12,9 +12,9 @@
 ### Eureka Server
 ### OpenFeign
 
-# Circuit Breaker
-### Hystrix
-
 # Tracing
 ### Sleuth & Zipkin 
 ### Wavefront
+
+# Circuit Breaker
+### Hystrix
