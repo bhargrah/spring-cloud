@@ -1,6 +1,14 @@
 # Spring Cloud
- ## Project to inlcude - 
- ### Guest Services 
- ### Reservation Services 
- ### Room Services 
- ### Eureka Server 
+
+# Services
+### Guest Services
+### Reservation Services
+### Room Services
+
+# Service Discovery 
+### Eureka Server
+### OpenFeign
+
+# Tracing
+### Sleuth & Zipkin 
+### Wavefront
