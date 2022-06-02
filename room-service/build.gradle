@@ -35,7 +35,9 @@ dependencies {
 
     // Tracing
     //implementation 'org.springframework.cloud:spring-cloud-sleuth-zipkin'
-    //implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+    implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+    implementation 'com.wavefront:wavefront-spring-boot-starter:2.2.2'
+
 
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
