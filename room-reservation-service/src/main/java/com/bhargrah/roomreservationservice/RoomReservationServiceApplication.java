@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients//(basePackages = {"com.bhargrah.roomreservationservice"})
+@EnableFeignClients(basePackages = {"com.bhargrah.roomreservationservice.client"})
 public class RoomReservationServiceApplication {
   public static void main(String[] args) {
     SpringApplication.run(RoomReservationServiceApplication.class, args);
