@@ -4,10 +4,10 @@
 ![](https://github.com/bhargrah/spring-cloud/blob/main/images/Services.png)
 
 # Services
-### Guest Services
-### Reservation Services
-### Room Services
-### Room Reservation Services
+- Guest Services
+- Reservation Services
+- Room Services
+- Room Reservation Services
 
 ### Depedencies among microservices 
 ![](https://github.com/bhargrah/spring-cloud/blob/main/images/Services.png)
