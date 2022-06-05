@@ -16,6 +16,11 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
+    @GetMapping("/all")
+    public Iterable<Reservation> findAllReservation(){
+        return reservationService.findAllReservation();
+    }
+
     @GetMapping("/{reservationId}")
     public Reservation findReservationById(@NotNull @PathVariable Long reservationId){
         return reservationService.findReservation(reservationId);

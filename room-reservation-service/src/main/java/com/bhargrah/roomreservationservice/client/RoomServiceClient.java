@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface RoomServiceClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/rooms/all")
-    Iterable<Room> getAll();
+    Iterable<Room> getAllRoom();
 
     @RequestMapping(method = RequestMethod.GET, value = "/rooms/{roomId}")
     Room getRoomById(@NonNull @PathVariable Long roomId);

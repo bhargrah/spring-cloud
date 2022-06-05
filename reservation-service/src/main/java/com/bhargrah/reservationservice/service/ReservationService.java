@@ -6,6 +6,8 @@ public interface ReservationService {
 
   Reservation findReservation(Long reservationId);
 
+  Iterable<Reservation> findAllReservation();
+
   Reservation addReservation(Reservation reservation);
 
   Reservation updateReservation(Long reservationId, Reservation reservation);

@@ -21,7 +21,12 @@ public class ReservationServiceImpl implements ReservationService {
         .orElseThrow(() -> new ReservationNotFound());
   }
 
-  @Override
+    @Override
+    public Iterable<Reservation> findAllReservation() {
+        return reservationRepository.findAll();
+    }
+
+    @Override
   public Reservation addReservation(Reservation newReservation) {
     return reservationRepository.save(newReservation);
   }
