@@ -1,8 +1,5 @@
 # Spring Cloud
 
-## Depedencies among microservices 
-![](https://github.com/bhargrah/spring-cloud/blob/main/images/Services.png)
-
 # Services
 - Guest Services
 - Reservation Services
