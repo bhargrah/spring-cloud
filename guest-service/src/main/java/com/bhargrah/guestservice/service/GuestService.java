@@ -1,20 +1,92 @@
 package com.bhargrah.guestservice.service;
 
+import com.bhargrah.guestservice.advice.exceptions.GuestNotFoundException;
 import com.bhargrah.guestservice.entity.Guest;
+import com.bhargrah.guestservice.repository.GuestRepository;
+import org.springframework.stereotype.Service;
 
-public interface GuestService {
+@Service
+public class GuestService implements IGuestService {
 
-  Iterable<Guest> getAllGuest();
+  private final GuestRepository guestRepository;
 
-  Guest findGuestById(Long id);
+  public GuestService(GuestRepository guestRepository) {
+    this.guestRepository = guestRepository;
+  }
 
-  Guest addGuest(Guest guest);
+  @Override
+  public Iterable<Guest> getAllGuest() {
+    return guestRepository.findAll();
+  }
 
-  void deleteGuest(Long guestId);
+  @Override
+  public Guest findGuestById(Long id) {
+    return guestRepository
+        .findById(id)
+        .orElseThrow(() -> new GuestNotFoundException("Guest with [" + id + "] not found"));
+  }
 
-  Guest updateGuestWithId(Guest newGuest, Long id);
+  @Override
+  public Guest addGuest(Guest guest) {
+    return guestRepository.save(guest);
+  }
 
-  Guest updateContactDetailsOfGuestWithId(Guest newGuest, Long id);
+  @Override
+  public void deleteGuest(Long guestId) {
+    guestRepository.deleteById(guestId);
+  }
 
-  Guest updateNameOfGuest(Guest newGuest, Long id);
+  @Override
+  public Guest updateGuestWithId(Guest newGuest, Long guestId) {
+    return guestRepository
+        .findById(guestId)
+        .map(
+            guest -> {
+              guest.setAddress(newGuest.getAddress());
+              guest.setCountry(newGuest.getCountry());
+              guest.setState(newGuest.getState());
+              guest.setLastName(newGuest.getLastName());
+              guest.setFirstName(newGuest.getFirstName());
+              guest.setEmailAddress(newGuest.getEmailAddress());
+              guest.setPhoneNumber(newGuest.getPhoneNumber());
+              return guestRepository.save(guest);
+            })
+        .orElseGet(
+            () -> {
+              newGuest.setGuestId(guestId);
+              return guestRepository.save(newGuest);
+            });
+  }
+
+  @Override
+  public Guest updateContactDetailsOfGuestWithId(Guest newGuest, Long guestId) {
+    return guestRepository
+        .findById(guestId)
+        .map(
+            guest -> {
+              guest.setEmailAddress(newGuest.getEmailAddress());
+              guest.setPhoneNumber(newGuest.getPhoneNumber());
+              return guestRepository.save(guest);
+            })
+        .orElseThrow(
+            () ->
+                new GuestNotFoundException(
+                    "Cant update guest with [" + guestId + "] as entity not found"));
+  }
+
+  @Override
+  public Guest updateNameOfGuest(Guest newGuest, Long guestId) {
+    return guestRepository
+        .findById(guestId)
+        .map(
+            guest -> {
+              guest.setLastName(newGuest.getLastName());
+              guest.setFirstName(newGuest.getFirstName());
+              return guestRepository.save(guest);
+            })
+        .orElseThrow(
+            () ->
+                new GuestNotFoundException(
+                    "Cant update guest with [" + guestId + "] as entity not found"));
+  }
 }

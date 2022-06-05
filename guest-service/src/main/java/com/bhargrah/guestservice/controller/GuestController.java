@@ -1,7 +1,7 @@
 package com.bhargrah.guestservice.controller;
 
 import com.bhargrah.guestservice.entity.Guest;
-import com.bhargrah.guestservice.service.GuestServiceImpl;
+import com.bhargrah.guestservice.service.GuestService;
 import lombok.NonNull;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/guests")
 public class GuestController {
 
-  private final GuestServiceImpl guestService;
+  private final GuestService guestService;
 
-  public GuestController(GuestServiceImpl guestService) {
+  public GuestController(GuestService guestService) {
     this.guestService = guestService;
   }
 

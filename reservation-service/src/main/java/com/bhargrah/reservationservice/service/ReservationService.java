@@ -1,16 +1,57 @@
 package com.bhargrah.reservationservice.service;
 
+import com.bhargrah.reservationservice.advice.exception.ReservationNotFound;
 import com.bhargrah.reservationservice.entity.Reservation;
+import com.bhargrah.reservationservice.repository.ReservationRepository;
+import org.springframework.stereotype.Service;
 
-public interface ReservationService {
+@Service
+public class ReservationService implements IReservationService {
 
-  Reservation findReservation(Long reservationId);
+  private final ReservationRepository reservationRepository;
 
-  Iterable<Reservation> findAllReservation();
+  public ReservationService(ReservationRepository reservationRepository) {
+    this.reservationRepository = reservationRepository;
+  }
 
-  Reservation addReservation(Reservation reservation);
+  @Override
+  public Reservation findReservation(Long reservationId) {
+    return reservationRepository
+        .findById(reservationId)
+        .orElseThrow(() -> new ReservationNotFound());
+  }
 
-  Reservation updateReservation(Long reservationId, Reservation reservation);
+    @Override
+    public Iterable<Reservation> findAllReservation() {
+        return reservationRepository.findAll();
+    }
 
-  void deleteReservation(Long reservationId);
+    @Override
+  public Reservation addReservation(Reservation newReservation) {
+    return reservationRepository.save(newReservation);
+  }
+
+  @Override
+  public Reservation updateReservation(Long reservationId, Reservation newReservation) {
+
+    return reservationRepository
+        .findById(reservationId)
+        .map(
+            reservation -> {
+              reservation.setGuestId(newReservation.getGuestId());
+              reservation.setRoomId(newReservation.getRoomId());
+              reservation.setReservationDate(newReservation.getReservationDate());
+              return reservationRepository.save(reservation);
+            })
+        .orElseGet(
+            () -> {
+              newReservation.setReservationId(reservationId);
+              return reservationRepository.save(newReservation);
+            });
+  }
+
+  @Override
+  public void deleteReservation(Long reservationId) {
+    reservationRepository.deleteById(reservationId);
+  }
 }

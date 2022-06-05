@@ -1,7 +1,7 @@
 package com.bhargrah.reservationservice.controller;
 
 import com.bhargrah.reservationservice.entity.Reservation;
-import com.bhargrah.reservationservice.service.ReservationService;
+import com.bhargrah.reservationservice.service.IReservationService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
@@ -10,9 +10,9 @@ import javax.validation.constraints.NotNull;
 @RequestMapping("/reservation")
 public class ReservationController {
 
-    private ReservationService reservationService;
+    private IReservationService reservationService;
 
-    public ReservationController(ReservationService reservationService) {
+    public ReservationController(IReservationService reservationService) {
         this.reservationService = reservationService;
     }
 
