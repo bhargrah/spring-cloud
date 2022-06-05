@@ -1,7 +1,7 @@
 package com.bhargrah.roomservice.controller;
 
 import com.bhargrah.roomservice.entity.Room;
-import com.bhargrah.roomservice.service.RoomService;
+import com.bhargrah.roomservice.service.IRoomService;
 import lombok.NonNull;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/rooms")
 public class RoomController {
 
-  private final RoomService roomService;
+  private final IRoomService roomService;
 
-  public RoomController(RoomService roomService) {
+  public RoomController(IRoomService roomService) {
     this.roomService = roomService;
   }
 

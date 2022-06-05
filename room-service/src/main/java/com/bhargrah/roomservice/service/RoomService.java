@@ -1,15 +1,36 @@
 package com.bhargrah.roomservice.service;
 
+import com.bhargrah.roomservice.advice.exceptions.RoomNotFound;
 import com.bhargrah.roomservice.entity.Room;
+import com.bhargrah.roomservice.repository.RoomRepository;
+import org.springframework.stereotype.Service;
 
-public interface RoomService {
+@Service
+public class RoomService implements IRoomService {
 
-    Iterable<Room> getAllRoom();
+    private RoomRepository roomRepository;
 
-    Room findRoomById(Long roomId);
+    public RoomService(RoomRepository roomRepository) {
+        this.roomRepository = roomRepository;
+    }
 
-    Room addRoom(Room room);
+    @Override
+    public Iterable<Room> getAllRoom() {
+        return roomRepository.findAll();
+    }
 
-    void deleteRoomById(Long roomId);
+    @Override
+    public Room findRoomById(Long roomId) {
+        return roomRepository.findById(roomId).orElseThrow(() -> new RoomNotFound(roomId));
+    }
 
+    @Override
+    public Room addRoom(Room room) {
+        return roomRepository.save(room);
+    }
+
+    @Override
+    public void deleteRoomById(Long roomId) {
+        roomRepository.deleteById(roomId);
+    }
 }

@@ -14,11 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class RoomReservationService {
+public class RoomReservationService implements IRoomReservationService {
     @Autowired RoomServiceClient roomServiceClient;
     @Autowired GuestServiceClient guestServiceClient;
     @Autowired ReservationServiceClient reservationServiceClient;
 
+    @Override
     public List<RoomReservation> getRoomReservation(){
 
         Iterable<Reservation> reservations = reservationServiceClient.findAllReservation();
@@ -45,6 +46,7 @@ public class RoomReservationService {
         return roomReservations;
     }
 
+    @Override
     public RoomReservation getRoomReservation(Long roomId){
        Room room = roomServiceClient.getRoomById(roomId);
         RoomReservation roomReservation = new RoomReservation();
